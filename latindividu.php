@@ -1,5 +1,6 @@
 <?php
 
+//Data nilai matkul
 $matkul = [
     ["nama" => "Jaringan Komputer", "sks" => 3, "nilai" => 75],
     ["nama" => "Pemrograman Web", "sks" => 3, "nilai" => 90],
@@ -10,6 +11,7 @@ $matkul = [
     ["nama" => "Kalkulus", "sks" => 3, "nilai" => 57],
 ];
 
+//Fungsi untuk menentukan huruf dan bobot dari nilai
 function hitungBobot($nilai)
 {
     if ($nilai >= 80) {
@@ -40,6 +42,7 @@ function hitungBobot($nilai)
     }
 }
 
+//Variabel untuk hitung total sks dan bobot
 $totalSks = 0;
 $totalBobot = 0;
 $no = 1;
@@ -67,16 +70,19 @@ $no = 1;
         </tr>
 
         <?php foreach ($matkul as $data): ?>
-
             <?php
-                $hasil = hitungBobot($data["nilai"]);
 
+                // Menentukan nilai huruf dan bobot berdasarkan nilai angka
+                $hasil = hitungBobot($data["nilai"]);
+                
+                //Menentukan status kelulusan
                 if ($hasil["bobot"] >= 2.0) {
                     $status = "LULUS";
                 } else {
                     $status = "MENGULANG";
                 }
 
+                //Menghitung total sks dan total bobot nilai
                 $totalSks += $data["sks"];
                 $totalBobot += $data["sks"] * $hasil["bobot"];
             ?>
@@ -97,8 +103,11 @@ $no = 1;
     </table>
 
     <?php
+
+        //Menghitung IPS
         $ips = $totalBobot / $totalSks;
 
+        //Menentukan batas maksimal SKS semester berikutnya
         if ($ips >= 3.00) {
             $maxSks = 24;
         } else {
